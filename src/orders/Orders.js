@@ -7,12 +7,9 @@ import UpdateOrderModal from "./UpdateOrderModal";
 
 const Orders = (props) => {
 
-  console.log('orders', props.orders)
-
   useEffect(() => {
     props.getOrders()
-  }, [])
-
+  }, [props.getOrders])
 
   const config = [
     {key: 'orderNumber', label: '#', render: (row) => <b>{row.orderNumber}</b>},
@@ -41,7 +38,7 @@ const Orders = (props) => {
       </>
     },
     {
-      key: 'update', label: 'Action Update', render: (row) => <UpdateOrderModal row={row} />
+      key: 'update', label: 'Action Update', render: (row) => <UpdateOrderModal row={row}/>
     },
   ]
 
@@ -56,8 +53,6 @@ const Orders = (props) => {
 
   const mapStateToProps = (state) => ({
     orders: state.orders,
-    clients: state.clients,
-    services: state.services
   })
 
   const mapDispatchToProps = (dispatch) => ({

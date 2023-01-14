@@ -7,7 +7,6 @@ const UpdateJobModal = ({updateJob, row}) => {
   const [price, setPrice] = useState(row.price)
   const [primeCost, setPrimeCost] = useState(row.primeCost)
   const [employee, setEmployee] = useState(row.employee)
-
   const [modal, setModal] = useState(false);
 
   const toggle = () => {
@@ -51,8 +50,6 @@ const UpdateJobModal = ({updateJob, row}) => {
           <Input value={employee}
                  onChange={(e) => setEmployee(e.target.value)}>
           </Input>
-
-
 
         </ModalBody>
         <ModalFooter>

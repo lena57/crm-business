@@ -8,16 +8,13 @@ import Home from "./Home";
 
 const AllRoutes = () => {
   return (
-
     <div>
-
     <Routes>
       <Route path='/' element={<Home />}/>
       <Route path='/clients' element={<Clients />}/>
       <Route path='/orders' element={<Orders/>}/>
       <Route path='/services' element={<Services/>}/>
     </Routes>
-
     </div>
   );
 };

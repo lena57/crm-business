@@ -11,7 +11,6 @@ import {connect} from "react-redux";
 const Services = (props) => {
   console.log('services', props.services)
 
-
   useEffect(() => {
     props.getJobs()
   }, [])

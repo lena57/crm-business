@@ -21,7 +21,6 @@ const Clients = (props) => {
   }, [])
 
   const config = [
-    //{key: 'id', label: 'Job', render: (row) => <span>{row._id}</span>},
     {key: 'name', label: 'Name', render: (row) => <span>{row.name}</span>},
     {key: 'address', label: 'Address', render: (row) => <span>{row.address}</span>},
     {key: 'phone', label: 'Phone', render: (row) => <span>{row.phoneNumber}</span>},

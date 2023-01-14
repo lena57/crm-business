@@ -8,7 +8,6 @@ function App() {
 
   return (
     <div className="App">
-
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -21,12 +20,7 @@ function App() {
           </div>
         </div>
       </nav>
-
-
-
       <AllRoutes/>
-
-
     </div>
   );
 }

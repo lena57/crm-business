@@ -5,14 +5,15 @@ import {addOrderInActions, getClientsInActions, getJobsInActions} from "../redux
 import {getDataFunction} from "../GetData";
 
 const CreateOrderModal = (props) => {
+  const { getClients, getJobs, clients, services} = props
 
-  // useEffect(() => {
-  //   props.getClients()
-  //   props.getJobs()
-  // }, [props.orders])
+  useEffect(() => {
+    getClients()
+    getJobs()
+  }, [getClients, getJobs])
 
-  const clientNameArray = props.clients.map(el => el.name)
-  const jobsArray = props.services.map(el => el.job)
+  const clientNameArray = clients.map(el => el.name)
+  const jobsArray = services.map(el => el.job)
 
   const [clientName, setClientName] = useState(clientNameArray[0])
   const [job, setJob] = useState(jobsArray[0])
@@ -29,8 +30,8 @@ const CreateOrderModal = (props) => {
     setPrepaid(0)
   };
 
+  const service = props.services.filter((service) => service.job === job)
   const saveButtonHandler = () => {
-    const service = props.services.filter((service) => service.job === job)
     console.log('service', service)
     const newOrder = {
       "orderNumber": props.orders.length + 1,
@@ -66,9 +67,7 @@ const CreateOrderModal = (props) => {
     console.log('newOrder', newOrder)
     props.addOrder(newOrder)
     toggle()
-
   }
-
 
   return (
     <div>
@@ -100,7 +99,7 @@ const CreateOrderModal = (props) => {
 
           <br/>
           Price($):
-          {/*<span>Price($): {props.services.filter((el)=>el.job===job)[0].price}</span>*/}
+          {/*<span>Price($): {service[0].price}</span>*/}
           <br/>
           <br/>
           <label>Prepaid:</label>
