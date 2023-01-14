@@ -1,23 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
+import AllRoutes from "./routes";
+import 'bootstrap/dist/css/bootstrap.css';
+
 
 function App() {
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <div className="container-fluid">
+          <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div className="navbar-nav">
+              <a className="nav-link" href="/">Home</a>
+              <a className="nav-link" href="/clients">Clients</a>
+              <a className="nav-link" href="/services">Services</a>
+              <a className="nav-link" href="/orders">Orders</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+
+
+      <AllRoutes/>
+
+
     </div>
   );
 }
