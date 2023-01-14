@@ -9,7 +9,7 @@ const Orders = (props) => {
 
   useEffect(() => {
     props.getOrders()
-  }, [props.getOrders])
+  }, [])
 
   const config = [
     {key: 'orderNumber', label: '#', render: (row) => <b>{row.orderNumber}</b>},
