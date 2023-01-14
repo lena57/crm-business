@@ -10,7 +10,7 @@ const CreateOrderModal = (props) => {
   useEffect(() => {
     getClients()
     getJobs()
-  }, [getClients, getJobs])
+  }, [])
 
   const clientNameArray = clients.map(el => el.name)
   const jobsArray = services.map(el => el.job)
