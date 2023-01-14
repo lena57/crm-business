@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Modal, ModalHeader, ModalBody, ModalFooter, Input} from 'reactstrap';
 import {connect} from "react-redux";
-import {v4 as uuidv4} from 'uuid';
 import {addOrderInActions, getClientsInActions, getJobsInActions} from "../redux/actions";
 import {getDataFunction} from "../GetData";
 
 const CreateOrderModal = (props) => {
-  useEffect(() => {
-    props.getClients()
-    props.getJobs()
-  }, [props.orders])
+
+  // useEffect(() => {
+  //   props.getClients()
+  //   props.getJobs()
+  // }, [props.orders])
 
   const clientNameArray = props.clients.map(el => el.name)
   const jobsArray = props.services.map(el => el.job)
@@ -33,7 +33,6 @@ const CreateOrderModal = (props) => {
     const service = props.services.filter((service) => service.job === job)
     console.log('service', service)
     const newOrder = {
-     "_id": uuidv4(),
       "orderNumber": props.orders.length + 1,
       clientName,
       "service": {

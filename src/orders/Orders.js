@@ -3,6 +3,7 @@ import TableOrders from "./TableOrders";
 import { getOrdersInActions} from "../redux/actions";
 import {connect} from "react-redux";
 import CreateOrderModal from "./CreateOrderModal";
+import UpdateOrderModal from "./UpdateOrderModal";
 
 const Orders = (props) => {
 
@@ -23,11 +24,11 @@ const Orders = (props) => {
     {key: 'data', label: 'Create at', render: (row) => <span>{row.service.createAt}</span>},
     {
       key: 'statuses', label: 'Statuses', render: (row) => <>
-        <div>In progress: <b>{row.sentToDo.status ? 'Yes' : ''}</b></div>
-        <div>Job completed: <b>{row.completed.status ? 'Yes' : ''}</b></div>
-        <div>Say to client: <b>{row.sayToClient.status ? 'Yes' : ''}</b></div>
-        <div>Client received: <b>{row.clientReceived.status ? 'Yes' : ''}</b></div>
-        <div>Paid: <b>{row.paid.status ? 'Yes' : ''}</b></div>
+        <div>In progress: <b>{row.sentToDo.status ? <span>&#10003;</span> : ''}</b></div>
+        <div>Job completed: <b>{row.completed.status ? <span>&#10003;</span> : ''}</b></div>
+        <div>Say to client: <b>{row.sayToClient.status ? <span>&#10003;</span> : ''}</b></div>
+        <div>Client received: <b>{row.clientReceived.status ? <span>&#10003;</span> : ''}</b></div>
+        <div>Paid: <b>{row.paid.status ? <span>&#10003;</span> : ''}</b></div>
       </>
     },
     {
@@ -38,13 +39,16 @@ const Orders = (props) => {
         <div>Client received date: <b>{row.clientReceived.date}</b></div>
         <div>Paid date: <b>{row.paid.date}</b></div>
       </>
-    }
+    },
+    {
+      key: 'update', label: 'Action Update', render: (row) => <UpdateOrderModal row={row} />
+    },
   ]
 
     return (
       <div>
         <h2>Orders</h2>
-        <CreateOrderModal/>
+        <CreateOrderModal />
         <TableOrders orders={props.orders} config={config}/>
       </div>
     )

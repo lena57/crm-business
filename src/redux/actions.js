@@ -86,4 +86,11 @@ export const addOrderInActions = (newOrder) => {
     .catch(err => console.log(err))
 }
 
-
+export const updateOrderInActions = (id, newOrder) => {
+  return (dispatch) => axios.patch(`https://expressjs-server.up.railway.app/orders/${id}`, {
+      ...newOrder
+    }
+  )
+    .then((res) => dispatch(getOrdersInActions()))
+    .catch(err => console.log(err))
+}
