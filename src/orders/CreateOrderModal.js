@@ -30,14 +30,17 @@ const CreateOrderModal = (props) => {
     setPrepaid(0)
   };
 
-  const service = props.services.filter((service) => service.job === job)
+  const serviceObj = props.services.filter((service) => service.job === job)
   const saveButtonHandler = () => {
-    console.log('service', service)
+    console.log('serviceObj', serviceObj)
     const newOrder = {
       "orderNumber": props.orders.length + 1,
       clientName,
       "service": {
-        ...service,
+        "job": serviceObj[0].job,
+        "employee": serviceObj[0].employee,
+        "price": serviceObj[0].price,
+        "primeCost": serviceObj[0].primeCost,
         "createAt": getDataFunction()
       },
       "sentToDo": {
@@ -58,16 +61,18 @@ const CreateOrderModal = (props) => {
       },
       "paid": {
         "payment": prepaid,
-        "debt": service[0].price - prepaid,
-        "primeCost": service[0].primeCost,
-        "date": service[0].price <= prepaid ? getDataFunction() : '',
-        "status": (service[0].price <= prepaid)
+        "debt": serviceObj[0].price - prepaid,
+        "primeCost": serviceObj[0].primeCost,
+        "date": serviceObj[0].price <= prepaid ? getDataFunction() : '',
+        "status": (serviceObj[0].price <= prepaid)
       }
     }
     console.log('newOrder', newOrder)
     props.addOrder(newOrder)
     toggle()
   }
+
+  const priceForJob = serviceObj[0].price > 0 ? serviceObj[0].price : 0
 
   return (
     <div>
@@ -98,8 +103,7 @@ const CreateOrderModal = (props) => {
           </select>
 
           <br/>
-          Price($):
-          {/*<span>Price($): {service[0].price}</span>*/}
+          <span>Price($): <b>{priceForJob}</b></span>
           <br/>
           <br/>
           <label>Prepaid:</label>

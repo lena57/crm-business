@@ -5,28 +5,37 @@ import {updateOrderInActions} from "../redux/actions";
 import {getDataFunction} from "../GetData";
 
 const UpdateOrderModal = (props) => {
+  console.log('propsFromUpdateOrder', props)
+  const {row} = props
+  if(!row.paid.status){
+    row.paid.status = false
+  }
 
   const [newPayment, setNewPayment] = useState(0)
-  const [inProgress, setInProgress] = useState(props.row.sentToDo.status)
-  const [jobCompleted, setJobCompleted] = useState(props.row.completed.status)
-  const [sayToClient, setSayToClient] = useState(props.row.sayToClient.status)
-  const [clientReceived, setClientReceived] = useState(props.row.clientReceived.status)
-  const [paid, setPaid] = useState(props.row.paid.status)
+  const [inProgress, setInProgress] = useState(row.sentToDo.status)
+  const [jobCompleted, setJobCompleted] = useState(row.completed.status)
+  const [sayToClient, setSayToClient] = useState(row.sayToClient.status)
+  const [clientReceived, setClientReceived] = useState(row.clientReceived.status)
+  const [paidStatus, setPaidStatus] = useState(row.paid.status)
+
+  console.log('paidStatus', paidStatus)
 
   const [modal, setModal] = useState(false);
 
   const toggle = () => {
     setModal(!modal)
     setNewPayment(0)
-    setInProgress(props.row.sentToDo.status)
-    setJobCompleted(props.row.completed.status)
-    setSayToClient(props.row.sayToClient.status)
-    setClientReceived(props.row.clientReceived.status)
-    setPaid(props.row.paid.status)
+    setInProgress(row.sentToDo.status)
+    setJobCompleted(row.completed.status)
+    setSayToClient(row.sayToClient.status)
+    setClientReceived(row.clientReceived.status)
+    setPaidStatus(row.paid.status)
   };
 
   const saveButtonHandler = () => {
-
+    if(row.paid.debt<=0) {
+      setPaidStatus(!paidStatus)
+    }
     const newOrder = {
       "orderNumber": props.row.orderNumber,
       "clientName": props.row.clientName,
@@ -53,8 +62,8 @@ const UpdateOrderModal = (props) => {
         "payment": props.row.paid.payment + newPayment,
         "debt": props.row.paid.debt - newPayment,
         "primeCost": props.row.paid.primeCost,
-        "date": paid ? getDataFunction() : '',
-        "status": paid
+        "status": paidStatus,
+        "date": paidStatus ? getDataFunction() : '',
       }
     }
     console.log('newOrderUpdate', newOrder)
@@ -70,16 +79,16 @@ const UpdateOrderModal = (props) => {
         <ModalHeader toggle={toggle}>Update Order</ModalHeader>
         <ModalBody>
           Client name:
-          <span> <b> {props.row.clientName}</b></span>
+          <span> <b> {row.clientName}</b></span>
           <hr/>
           Service:
-          <span> <b> {props.row.service.job}</b></span>
+          <span> <b> {row.service.job}</b></span>
           <hr/>
           Price($):
-          <span> <b>{props.row.service.price}</b></span>
+          <span> <b>{row.service.price}</b></span>
           <hr/>
           New Payment:
-          <Input value={newPayment}
+          <Input value={newPayment} type='number'
                  onChange={(e) => setNewPayment(+e.target.value)}></Input>
           <hr/>
 
@@ -107,8 +116,9 @@ const UpdateOrderModal = (props) => {
             Client received
           </div>
           <hr/>
+
           Paid:
-          <span> <b>{props.row.paid.debt <= 0 ? setPaid(!paid) && <span>&#10003;</span> : null}</b></span>
+          <span> <b>{paidStatus ? <span>&#10003;</span> : null}</b></span>
 
         </ModalBody>
         <ModalFooter>
@@ -124,13 +134,10 @@ const UpdateOrderModal = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  clients: state.clients,
-  services: state.services,
-})
+
 
 const mapDispatchToProps = (dispatch) => ({
   updateOrder: (id, newOrder) => dispatch(updateOrderInActions(id, newOrder))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(UpdateOrderModal);
+export default connect(null, mapDispatchToProps)(UpdateOrderModal);

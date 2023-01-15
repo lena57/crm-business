@@ -9,6 +9,7 @@ const Orders = (props) => {
 
   useEffect(() => {
     props.getOrders()
+
   }, [])
 
   const config = [

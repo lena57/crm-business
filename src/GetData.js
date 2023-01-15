@@ -3,5 +3,5 @@ export const getDataFunction = () => {
   const day = newData.getDate();
   const month = newData.getMonth() + 1;
   const year = newData.getFullYear();
-  return day + '/' + (month < 10 ? '0' : '') + month + '/' + year;
+  return (month < 10 ? '0' : '') + month + '/' + day + '/' + year;
 }
