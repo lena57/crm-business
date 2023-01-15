@@ -39,8 +39,8 @@ const CreateOrderModal = (props) => {
       "service": {
         "job": serviceObj[0].job,
         "employee": serviceObj[0].employee,
-        "price": serviceObj[0].price,
-        "primeCost": serviceObj[0].primeCost,
+        "price": +serviceObj[0].price,
+        "primeCost": +serviceObj[0].primeCost,
         "createAt": getDataFunction()
       },
       "sentToDo": {
@@ -60,11 +60,11 @@ const CreateOrderModal = (props) => {
         "status": false
       },
       "paid": {
-        "payment": prepaid,
-        "debt": serviceObj[0].price - prepaid,
+        "payment": +prepaid,
+        "debt": +serviceObj[0].price - +prepaid,
         "primeCost": serviceObj[0].primeCost,
-        "date": serviceObj[0].price <= prepaid ? getDataFunction() : '',
-        "status": (serviceObj[0].price <= prepaid)
+        "date": +serviceObj[0].price <= +prepaid ? getDataFunction() : '',
+        "status": (+serviceObj[0].price <= +prepaid)
       }
     }
     console.log('newOrder', newOrder)
@@ -72,7 +72,7 @@ const CreateOrderModal = (props) => {
     toggle()
   }
 
-  const priceForJob = serviceObj[0].price > 0 ? serviceObj[0].price : 0
+  const priceForJob = +serviceObj[0].price > 0 ? +serviceObj[0].price : 0
 
   return (
     <div>

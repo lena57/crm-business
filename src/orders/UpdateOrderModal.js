@@ -5,9 +5,9 @@ import {updateOrderInActions} from "../redux/actions";
 import {getDataFunction} from "../GetData";
 
 const UpdateOrderModal = (props) => {
-  console.log('propsFromUpdateOrder', props)
   const {row} = props
-  if(!row.paid.status){
+  //some orders have no paid status
+  if (!row.paid.status) {
     row.paid.status = false
   }
 
@@ -31,9 +31,8 @@ const UpdateOrderModal = (props) => {
     setClientReceived(row.clientReceived.status)
     setPaidStatus(row.paid.status)
   };
-
   const saveButtonHandler = () => {
-    if(row.paid.debt<=0) {
+    if (+row.paid.debt <= 0) {
       setPaidStatus(!paidStatus)
     }
     const newOrder = {
@@ -59,15 +58,15 @@ const UpdateOrderModal = (props) => {
         "status": clientReceived
       },
       "paid": {
-        "payment": props.row.paid.payment + newPayment,
-        "debt": props.row.paid.debt - newPayment,
-        "primeCost": props.row.paid.primeCost,
+        "payment": row.paid.payment + newPayment,
+        "debt": row.paid.debt - newPayment,
+        "primeCost": +row.paid.primeCost,
         "status": paidStatus,
         "date": paidStatus ? getDataFunction() : '',
       }
     }
     console.log('newOrderUpdate', newOrder)
-    props.updateOrder(props.row._id, newOrder)
+    props.updateOrder(row._id, newOrder)
     toggle()
   }
 
@@ -89,29 +88,29 @@ const UpdateOrderModal = (props) => {
           <hr/>
           New Payment:
           <Input value={newPayment} type='number'
-                 onChange={(e) => setNewPayment(+e.target.value)}></Input>
+                 onChange={(e) => setNewPayment(+e.target.value)}/>
           <hr/>
 
           <div className="form-check">
-            <input checked={inProgress} className="form-check-input" type="checkbox" value="inProgress"
+            <Input checked={inProgress} className="form-check-input" type="checkbox" value="inProgress"
                    id="flexCheckDefault" onChange={() => setInProgress(!inProgress)}/>
             In Progress
           </div>
           <hr/>
           <div className="form-check">
-            <input checked={jobCompleted} className="form-check-input" type="checkbox" value="jobCompleted"
+            <Input checked={jobCompleted} className="form-check-input" type="checkbox" value="jobCompleted"
                    id="flexCheckDefault" onChange={() => setJobCompleted(!jobCompleted)}/>
             Job completed
           </div>
           <hr/>
           <div className="form-check">
-            <input checked={sayToClient} className="form-check-input" type="checkbox" value="sayToClient"
+            <Input checked={sayToClient} className="form-check-input" type="checkbox" value="sayToClient"
                    id="flexCheckDefault" onChange={() => setSayToClient(!sayToClient)}/>
             Say to client
           </div>
           <hr/>
           <div className="form-check">
-            <input checked={clientReceived} className="form-check-input" type="checkbox"
+            <Input checked={clientReceived} className="form-check-input" type="checkbox"
                    value="clientReceived" id="flexCheckDefault" onChange={() => setClientReceived(!clientReceived)}/>
             Client received
           </div>
@@ -133,8 +132,6 @@ const UpdateOrderModal = (props) => {
     </div>
   );
 };
-
-
 
 const mapDispatchToProps = (dispatch) => ({
   updateOrder: (id, newOrder) => dispatch(updateOrderInActions(id, newOrder))
