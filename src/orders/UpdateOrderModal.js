@@ -32,9 +32,11 @@ const UpdateOrderModal = (props) => {
     setPaidStatus(row.paid.status)
   };
   const saveButtonHandler = () => {
+
     if (+row.paid.debt <= 0) {
-      setPaidStatus(!paidStatus)
+      setPaidStatus(true)
     }
+
     const newOrder = {
       "orderNumber": props.row.orderNumber,
       "clientName": props.row.clientName,
@@ -116,8 +118,8 @@ const UpdateOrderModal = (props) => {
           </div>
           <hr/>
 
-          Paid:
-          <span> <b>{paidStatus ? <span>&#10003;</span> : null}</b></span>
+
+          <span>  Paid:<b>{paidStatus ? <span>&#10003;</span> : null}</b></span>
 
         </ModalBody>
         <ModalFooter>
