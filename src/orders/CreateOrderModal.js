@@ -34,7 +34,7 @@ const CreateOrderModal = (props) => {
   const saveButtonHandler = () => {
     console.log('serviceObj', serviceObj)
     const newOrder = {
-      "orderNumber": props.orders.length + 1,
+      "orderNumber": Math.max(...props.orders.map(el => el.orderNumber)) + 1,
       clientName,
       "service": {
         "job": serviceObj[0].job,

@@ -17,9 +17,6 @@ const UpdateOrderModal = (props) => {
   const [sayToClient, setSayToClient] = useState(row.sayToClient.status)
   const [clientReceived, setClientReceived] = useState(row.clientReceived.status)
   const [paidStatus, setPaidStatus] = useState(row.paid.status)
-
-  console.log('paidStatus', paidStatus)
-
   const [modal, setModal] = useState(false);
 
   const toggle = () => {
@@ -31,11 +28,15 @@ const UpdateOrderModal = (props) => {
     setClientReceived(row.clientReceived.status)
     setPaidStatus(row.paid.status)
   };
-  const saveButtonHandler = () => {
 
-    if (+row.paid.debt <= 0) {
+  function changePaidStatus() {
+    if ((+row.paid.debt - newPayment) <= 0) {
       setPaidStatus(true)
     }
+    setPaidStatus(false)
+  }
+console.log('paidStatus', paidStatus)
+  const saveButtonHandler = () => {
 
     const newOrder = {
       "orderNumber": props.row.orderNumber,
@@ -61,13 +62,15 @@ const UpdateOrderModal = (props) => {
       },
       "paid": {
         "payment": row.paid.payment + newPayment,
-        "debt": row.paid.debt - newPayment,
+        "debt": +row.paid.debt - newPayment,
         "primeCost": +row.paid.primeCost,
         "status": paidStatus,
         "date": paidStatus ? getDataFunction() : '',
       }
     }
     console.log('newOrderUpdate', newOrder)
+
+    changePaidStatus()
     props.updateOrder(row._id, newOrder)
     toggle()
   }
@@ -86,7 +89,10 @@ const UpdateOrderModal = (props) => {
           <span> <b> {row.service.job}</b></span>
           <hr/>
           Price($):
-          <span> <b>{row.service.price}</b></span>
+          <span> <b>{+row.service.price}</b></span>
+          <hr/>
+          Debt($):
+          <span> <b>{+row.paid.debt}</b></span>
           <hr/>
           New Payment:
           <Input value={newPayment} type='number'
@@ -118,8 +124,14 @@ const UpdateOrderModal = (props) => {
           </div>
           <hr/>
 
-
-          <span>  Paid:<b>{paidStatus ? <span>&#10003;</span> : null}</b></span>
+          {/*<div className="form-check">*/}
+          {/*  <Input checked={paidStatus} className="form-check-input" type="checkbox"*/}
+          {/*         value="clientReceived" id="flexCheckDefault"*/}
+          {/*         onChange={() => setPaidStatus(!paidStatus)}/>*/}
+          {/*  Paid*/}
+          {/*</div>*/}
+          {/*? <span>&#10003;</span> : null*/}
+          <span>  Paid:<b>{paidStatus ? <span>&#10003;</span> : 'no'}</b></span>
 
         </ModalBody>
         <ModalFooter>

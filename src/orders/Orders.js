@@ -4,6 +4,7 @@ import { getOrdersInActions} from "../redux/actions";
 import {connect} from "react-redux";
 import CreateOrderModal from "./CreateOrderModal";
 import UpdateOrderModal from "./UpdateOrderModal";
+import DeleteOrderModal from "./DeleteOrderModal";
 
 const Orders = (props) => {
 
@@ -16,9 +17,9 @@ const Orders = (props) => {
     {key: 'orderNumber', label: '#', render: (row) => <b>{row.orderNumber}</b>},
     {key: 'name', label: 'Name', render: (row) => <b>{row.clientName}</b>},
     {key: 'job', label: 'Service', render: (row) => <span>{row.service.job} ({row.service.employee})</span>},
-    {key: 'price', label: 'Price', render: (row) => <b>${row.service.price}</b>},
-    {key: 'payments', label: 'Payments', render: (row) => <b>${row.paid.payment}</b>},
-    {key: 'debt', label: 'Debt', render: (row) => <b>${row.paid.debt}</b>},
+    {key: 'price', label: 'Price', render: (row) => <b>${+row.service.price}</b>},
+    {key: 'payments', label: 'Payments', render: (row) => <b>${+row.paid.payment}</b>},
+    {key: 'debt', label: 'Debt', render: (row) => <b>${+row.paid.debt}</b>},
     {key: 'data', label: 'Create at', render: (row) => <span>{row.service.createAt}</span>},
     {
       key: 'statuses', label: 'Statuses', render: (row) => <>
@@ -40,6 +41,9 @@ const Orders = (props) => {
     },
     {
       key: 'update', label: 'Action Update', render: (row) => <UpdateOrderModal row={row}/>
+    },
+    {
+      key: 'delete', label: 'Action Update', render: (row) => <DeleteOrderModal row={row}/>
     },
   ]
 

@@ -37,11 +37,12 @@ const CreateJobModal = ({addJob}) => {
           <Input placeholder="job name" value={job} onChange={(e) =>
             setJob(e.target.value)}></Input>
           <br/>
-          <Input placeholder="price" value={price}
+          price($):
+          <Input placeholder="price" value={price} type='number'
                  onChange={(e) => setPrice(+e.target.value)}></Input>
           <br/>
-
-          <Input placeholder="prime cost" value={primeCost}
+          prime cost($):
+          <Input placeholder="prime cost" value={primeCost} type='number'
                  onChange={(e) => setPrimeCost(+e.target.value)}></Input>
 
           <br/>

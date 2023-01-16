@@ -94,3 +94,9 @@ export const updateOrderInActions = (id, newOrder) => {
     .then((res) => dispatch(getOrdersInActions()))
     .catch(err => console.log(err))
 }
+
+export const deleteOrderInActions = (id) => {
+  return (dispatch) => axios.delete(`https://expressjs-server.up.railway.app/orders/${id}`)
+    .then((res) => dispatch(getOrdersInActions()))
+    .catch(err => console.log(err))
+}
