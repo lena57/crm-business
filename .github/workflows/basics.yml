@@ -23,8 +23,8 @@ jobs:
         echo "Hello msg3"
         echo "App name ${{env.APPLICATION_NAME}}"
         
-      -name: List current folder
-        run: ls -la
+    - name: List current folder
+      run: ls -la
     
     
   my-deploy:
