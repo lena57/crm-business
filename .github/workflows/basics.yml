@@ -1,0 +1,20 @@
+# GitHub Actions
+name: GitHubActions
+on:
+  push:
+    branches: 
+      master
+jobs: 
+  my-build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Print msg
+      run: echo "Hello Lena from build job!"
+    
+    
+  my-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Print msg
+      run: echo "Hello Lena from deploy job!"
+    
