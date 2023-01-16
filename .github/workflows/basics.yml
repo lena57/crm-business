@@ -25,6 +25,12 @@ jobs:
         
     - name: List current folder
       run: ls -la
+        
+    - name: Git clone my repo
+      run: actions/checkout@v3
+        
+    - name: List current folder
+      run: ls -la
     
     
   my-deploy:
@@ -42,3 +48,8 @@ jobs:
         echo "Deploy msg6"
         echo "Deploy name ${{env.DEPLOY_PACKAGE_NAME}}"
     
+    - name: Check if there is a aws
+      run: aws --version
+      
+    - name: Check if there is a zip
+      run: zip
