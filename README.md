@@ -1,6 +1,6 @@
 
 Status of last Deployment:<br>
-<img src="https://github.com/lena57/crm-business/workflows/GitHubActions/badge.svg?branch=master"><br> "
+<img src="https://github.com/lena57/crm-business/workflows/GitHubActions/badge.svg?branch=master"><br>
 
 
 
