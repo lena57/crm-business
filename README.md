@@ -1,3 +1,9 @@
+
+Status of last Deployment:<br>
+<img src="https://github.com/lena57/crm-business/workflows/GitHubActions/badge.svg?branch=master"><br> "
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
