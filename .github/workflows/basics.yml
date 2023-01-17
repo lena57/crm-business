@@ -6,7 +6,7 @@ env:
   EB_APPLICATION_NAME: "crm-business-alsticBeanctalk"
   EB_ENVIRONMENT_NAME: "Crmbusinessalsticbeanctalk-env"
   DEPLOY_PACKAGE_NAME: "crm-business-${{github.sha}}.zip"
-  AWS_REGION_NAME: "us-east-2"
+  AWS_REGION_NAME: "US East (Ohio) us-east-2"
   
   
 
