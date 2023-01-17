@@ -1,68 +1,32 @@
 # GitHub Actions
-name: GitHubActions
+name: CI-CD-Pipeline-to-AWS-ElasticBeanStalk
 
 env:
-  APPLICATION_NAME: "MyApp"
-  DEPLOY_PACKAGE_NAME: "myApp-deploy-ver-${{github.sha}}"
+  EB_PACKAGE_S3_BUCKET_NAME: "crm-business-bucket"
+  EB_APPLICATION_NAME: "crm-business"
+  EB_ENVIRONMENT_NAME: "crm-business-env"
+  DEPLOY_PACKAGE_NAME: "crm-business-${{github.sha}}.zip"
+  AWS_REGION_NAME: "us-west-2"
+  
+  
 
 on:
   push:
     branches: 
       master
 jobs: 
-  my-build:
+  my-ci-part:
     runs-on: ubuntu-latest
     steps:
-    - name: Print msg
-      run: echo "Hello Lena from build job!"
-    
-    - name: Execute few commands
-      run: |
-        echo "Hello msg1"
-        echo "Hello msg2"
-        echo "Hello msg3"
-        echo "App name ${{env.APPLICATION_NAME}}"
-        
-    - name: List current folder
-      run: ls -la
-        
-    - name: Git clone my repo
+    - name: Clone our repo
       uses: actions/checkout@v3.3.0
-        
-    - name: List current folder
-      run: ls -la
-    
-    
-  my-deploy:
-    runs-on: ubuntu-latest
-    needs: [my-build]
-    
-    env: 
-      VAR1: "This is var1 for job my-deploy"
-      VAR2: "This is var2"
-    
-    steps:
-    - name: Print msg
-      run: echo "Hello Lena from deploy job!"
       
-    - name: Deploy package
-      run: |
-        echo "Deploy msg4"
-        echo "Deploy msg5"
-        echo "Deploy msg6"
-        echo "Deploy name ${{env.DEPLOY_PACKAGE_NAME}}"
-        
-    - name: Print env variables
-      run: |
-        echo "VAR1 = ${{env.VAR1}}"
-        echo "VAR2 = ${{env.VAR2}}"
-        echo "Local_var = $LOCAL_VAR"
-        
-      env: 
-        LOCAL_VAR: "This is a local var for steps for jod my-deploy"
-    
-    - name: Check if there is a aws
-      run: aws --version
+    - name: Create zip deployment package
+      run: zip -r ${{env.DEPLOY_PACKAGE_NAME}} ./ -x *.git*
       
-    - name: Check if there is a zip
-      run: zip --version
+  
+      
+      
+    
+   
+  
