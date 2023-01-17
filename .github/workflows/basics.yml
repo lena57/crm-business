@@ -6,7 +6,7 @@ env:
   EB_APPLICATION_NAME: "crm-business"
   EB_ENVIRONMENT_NAME: "crm-business-env"
   DEPLOY_PACKAGE_NAME: "crm-business-${{github.sha}}.zip"
-  AWS_REGION_NAME: "us-west-2"
+  AWS_REGION_NAME: "us-east-2"
   
   
 
